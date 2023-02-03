@@ -1,7 +1,6 @@
 #include <stdint.h>
 
 __asm__ (
-        ".code16gcc\n"
         "call dosmain\n"
         "mov $0x4c, %ah\n"
         "int $0x21\n"
