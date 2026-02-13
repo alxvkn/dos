@@ -1,4 +1,4 @@
-#pragma ocne
+#pragma once
 
 void _prints(const char* string);
 
