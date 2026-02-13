@@ -41,8 +41,5 @@ extern "C" void dosmain() {
     Repeater r = Repeater("hi", 5);
     r.print();
 
-    for (uint16_t i = 0; i < message_length; i++)
-        printc(message[i]);
-
     return;
 }
