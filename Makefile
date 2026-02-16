@@ -1,8 +1,8 @@
 # the -m16 generates 32-bit code and adds .code16gcc directive to assembly
-CFLAGS = -fno-pie -m16 -march=i386 -nostdlib -ffreestanding
+CFLAGS = -fno-pie -m16 -march=i386 -ffreestanding
 CXXFLAGS = $(CFLAGS) -fno-stack-protector -fno-exceptions -fno-rtti
 
-LDFLAGS = -Tcom.ld
+LDFLAGS = -Tcom.ld -nostdlib
 
 CC = clang
 CXX = clang++
