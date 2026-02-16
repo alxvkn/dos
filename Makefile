@@ -1,19 +1,24 @@
 # the -m16 generates 32-bit code and adds .code16gcc directive to assembly
-CFLAGS = -fno-pie -m16 -march=i386 -ffreestanding
-CXXFLAGS = $(CFLAGS) -fno-stack-protector -fno-exceptions -fno-rtti
 
-LDFLAGS = -Tcom.ld -nostdlib
-
-CC = clang
-CXX = clang++
+ROOT_DIR = .
+include config.mk
 
 EXE := a.com
 
-$(EXE): main.o printc.o prints.o
+DOS_LIBC_DIR = libc
+
+DOS_LIBC = $(DOS_LIBC_DIR)/libc.a
+
+all: $(EXE) cpp$(EXE)
+
+$(EXE): main.o $(DOS_LIBC)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-cpp$(EXE): cppmain.o printc.o prints.o
+cpp$(EXE): cppmain.o $(DOS_LIBC)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+$(DOS_LIBC):
+	$(MAKE) -C $(DOS_LIBC_DIR)
 
 run: $(EXE)
 	dosbox $(EXE)
@@ -23,3 +28,6 @@ runcpp: cpp$(EXE)
 
 clean:
 	$(RM) *.o $(EXE) cpp$(EXE)
+	$(MAKE) -C $(DOS_LIBC_DIR) clean
+
+.PHONY: clean all

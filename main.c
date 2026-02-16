@@ -1,7 +1,4 @@
-#include <stdint.h>
-
-#include "printc.h"
-#include "prints.h"
+#include <stdio.h>
 
 __asm__ (
         "call dosmain\n"
@@ -10,12 +7,12 @@ __asm__ (
         );
 
 const char* message = "hello msdos!\n";
-const uint16_t message_length = 12;
+const unsigned message_length = 12;
 
 void dosmain() {
-    prints("hi dos\n");
-    for (uint16_t i = 0; i < message_length; i++)
-        printc(message[i]);
+    puts("hi dos\n");
+    for (unsigned i = 0; i < message_length; i++)
+        putchar(message[i]);
 
     return;
 }

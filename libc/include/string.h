@@ -1,10 +1,12 @@
 #pragma once
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void printc(char c);
+size_t strlen(const char* string);
 
 #ifdef __cplusplus
 }

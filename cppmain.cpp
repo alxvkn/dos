@@ -1,7 +1,4 @@
-#include <stdint.h>
-
-#include "printc.h"
-#include "prints.h"
+#include <stdio.h>
 
 __asm__ (
         "call dosmain\n"
@@ -10,23 +7,23 @@ __asm__ (
         );
 
 const char* message = "hello msdos!\n";
-const uint16_t message_length = 12;
+const unsigned message_length = 12;
 
 class Repeater {
     public:
     Repeater(const char* string, int times) : _string(string), _times(times) {
-        prints("constructor\n");
+        puts("constructor\n");
     }
 
     ~Repeater() {
-        prints("destructor\n");
+        puts("destructor\n");
     }
 
     void print() {
-        for (uint16_t i = 0; i < _times; i++) {
-            for (uint16_t j = 0; _string[j] != '\0'; j++)
-                printc(_string[j]);
-            printc('\n');
+        for (unsigned i = 0; i < _times; i++) {
+            for (unsigned j = 0; _string[j] != '\0'; j++)
+                putchar(_string[j]);
+            putchar('\n');
         }
     }
 
@@ -36,7 +33,7 @@ class Repeater {
 };
 
 extern "C" void dosmain() {
-    prints("hi dos\n");
+    puts("hi dos\n");
 
     Repeater r = Repeater("hi", 5);
     r.print();
