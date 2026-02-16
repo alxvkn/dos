@@ -9,15 +9,19 @@ DOS_LIBC_DIR = libc
 
 DOS_LIBC = $(DOS_LIBC_DIR)/libc.a
 
+CRT0 = $(DOS_LIBC_DIR)/crt0.o
+
 all: $(EXE) cpp$(EXE)
 
-$(EXE): main.o $(DOS_LIBC)
+$(EXE): $(CRT0) main.o $(DOS_LIBC)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 cpp$(EXE): cppmain.o $(DOS_LIBC)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) $(CRT0) $^ -o $@
 
-$(DOS_LIBC):
+FORCE:
+
+$(DOS_LIBC): FORCE
 	$(MAKE) -C $(DOS_LIBC_DIR)
 
 run: $(EXE)
@@ -30,4 +34,4 @@ clean:
 	$(RM) *.o $(EXE) cpp$(EXE)
 	$(MAKE) -C $(DOS_LIBC_DIR) clean
 
-.PHONY: clean all
+.PHONY: clean all FORCE

@@ -1,18 +1,20 @@
+#include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
-__asm__ (
-        "call dosmain\n"
-        "mov $0x4c, %ah\n"
-        "int $0x21\n"
-        );
+const char* message = "hello msdos!";
 
-const char* message = "hello msdos!\n";
-const unsigned message_length = 12;
+int main(int argc, char** argv) {
+    puts("hi dos");
 
-void dosmain() {
-    puts("hi dos\n");
+
+    for (unsigned i = 0; i < argc; i++)
+        puts(argv[i]);
+
+    const size_t message_length = strlen(message);
+
     for (unsigned i = 0; i < message_length; i++)
         putchar(message[i]);
 
-    return;
+    return 0;
 }

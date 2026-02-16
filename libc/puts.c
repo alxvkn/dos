@@ -6,5 +6,13 @@
 int puts(const char* string) {
     unsigned len = strlen(string);
 
-    return _dos_write(string, len) == -1 ? -1 : 0;
+    if (_dos_write(string, len) == -1) {
+        return -1;
+    }
+
+    if (_dos_write("\r\n", 2) == -1) {
+        return -1;
+    }
+
+    return 0;
 }

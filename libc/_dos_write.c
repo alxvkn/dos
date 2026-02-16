@@ -8,7 +8,7 @@ ssize_t _dos_write(const char* string, size_t len) {
 
     __asm__ volatile (
             "int $0x21\n"
-            : "=a"(written)
+            : "=a"(written), "=@ccc"(failed)
             : "a"(0x4000), // function 40h "WRITE"
               "b"(1), // 1 for stdout
               "d"(string),

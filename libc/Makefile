@@ -3,7 +3,11 @@ include $(ROOT_DIR)/config.mk
 
 LIB = libc.a
 
-$(LIB): puts.o putchar.o _dos_write.o string.o
+STARTUP = crt0.o
+
+all: $(LIB) $(STARTUP)
+
+$(LIB): puts.o putchar.o _dos_write.o string.o c_startup.o
 	ar rcs $@ $^
 
 clean:
