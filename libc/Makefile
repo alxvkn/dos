@@ -7,7 +7,7 @@ STARTUP = crt0.o
 
 all: $(LIB) $(STARTUP)
 
-$(LIB): puts.o putchar.o _dos_write.o string.o c_startup.o
+$(LIB): puts.o putchar.o _platform_write.o string.o c_startup.o
 	ar rcs $@ $^
 
 clean:
