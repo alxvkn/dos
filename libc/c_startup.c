@@ -5,7 +5,7 @@ static char* argv_list[16];
 
 extern int main(int argc, char** argv);
 
-void _c_startup() {
+static void _dos_c_startup() {
     uint8_t* psp = (uint8_t*)0;
     uint8_t cmdlen = psp[0x80];
 
@@ -36,4 +36,8 @@ void _c_startup() {
     int exit_code = main(argc, argv_list);
 
     asm volatile("" : : "a"(exit_code));
+}
+
+void _c_startup() {
+    return _dos_c_startup();
 }
